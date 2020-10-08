@@ -8,8 +8,7 @@ use App\Model\User;
 use Firebase\JWT\JWT;
 
 /**
- * Class Auth
- * @package Source\Models
+ * Class Autenticação
  */
 class Auth extends Model
 {
