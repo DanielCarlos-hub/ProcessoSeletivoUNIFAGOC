@@ -6,7 +6,7 @@
 - com o terminal no php acesse a pasta "projeto" e instale os componentes usando "composer install"
 
 ## Banco de dados
-- Acesse localhost:8004 (endereço local para o phpmyadmin)
+- Acesse http://localhost:8004 (endereço local para o phpmyadmin)
 - selecione o banco de dados prova e importe o arquivo phpmyadmin.sql dentro da pasta banco de dados 
 
 ## Acessos
