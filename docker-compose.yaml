@@ -1,0 +1,56 @@
+version: '3'
+# services
+services:
+
+  php:
+    container_name: php
+    image: webdevops/php-apache-dev:7.3
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    environment:
+      - WEB_DOCUMENT_ROOT=/var/www/html/projeto
+      - WEB_DOCUMENT_INDEX=index.php
+      - PHP_MAX_EXECUTION_TIME=86400
+    ports:
+      - 80:80
+    links:
+        - mysql
+    networks: 
+      - web
+  
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - '3306:3306'  
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=prova
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    networks: 
+      - web
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: 'phpmyadmin'
+    links:
+      - mysql
+    environment:
+      PMA_PORT: 3306
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - 8004:80
+    depends_on: 
+        - mysql
+    networks: 
+      - web
+    
+networks: 
+  web:
+    driver: bridge
