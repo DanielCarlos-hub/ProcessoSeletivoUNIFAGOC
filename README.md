@@ -1,7 +1,7 @@
 # Instruções
 
 ## Docker
-- use docker-composer up para inciar os containers
+- use docker-compose up na pasta raiz para instalar e inciar os containers
 - acesse o php com docker exec -it php /bin/bash
 - com o terminal no php acesse a pasta "projeto" e instale os componentes usando "composer install"
 
