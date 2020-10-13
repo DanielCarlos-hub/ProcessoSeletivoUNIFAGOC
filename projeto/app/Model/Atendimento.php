@@ -28,11 +28,14 @@ class Atendimento extends Model
      * 
      * @return Atendimento|null
      */
-    public function bootstrap(int $medico_id, int $paciente_id, ?bool $disponibilidade): ?Atendimento
+    public function bootstrap(int $medico_id, int $paciente_id, ?bool $disponibilidade, ?string $data_atendimento, ?string $start_at, ?string $end_at): ?Atendimento
     {
         $this->medico_id = $medico_id;
         $this->paciente_id = $paciente_id;
         $this->disponibilidade = $disponibilidade;
+        $this->data_atendimento = $data_atendimento;
+        $this->start_at = $start_at;
+        $this->end_at = $end_at;
         return $this;
     }
 
@@ -69,11 +72,27 @@ class Atendimento extends Model
      */
     public function save(): bool
     {
-        $checkOcioso = (new Atendimento())->find("medico_id = :medico_id AND disponibilidade is null", "medico_id={$this->medico_id}");
+        if(!isset($this->id)){
+            $checkOcioso = (new Atendimento())->find("medico_id = :medico_id AND disponibilidade is null", "medico_id={$this->medico_id}");
+            
+            if ($checkOcioso->count()) {
+                $this->message->warning("Médico com solicitação pendente!");
+                return false;
+            }
 
-        if ($checkOcioso->count()) {
-            $this->message->warning("Médico com solicitação pendente");
-            return false;
+            $checkSolicitacao = (new Atendimento())->find("paciente_id = :paciente_id AND disponibilidade is null", "paciente_id={$this->paciente_id}");
+
+            if ($checkSolicitacao->count()) {
+                $this->message->warning("Você já possui uma solicitação em andamento! Aguarde a resposta do médico");
+                return false;
+            }
+
+            $checkAtendimento = (new Atendimento())->find("medico_id = :medico_id AND paciente_id = :paciente_id AND disponibilidade = true", "medico_id={$this->medico_id}&paciente_id={$this->paciente_id}");
+
+            if($checkAtendimento->count()){
+                $this->message->warning("Você já possui um atendimento agendado com esse médico");
+                return false;
+            }
         }
 
         return parent::save();

@@ -5,6 +5,11 @@ $('.deselect-all').click(function () {
 });
 
 $(function(e) {
+	$(".date-inputmask").inputmask("date", {
+		inputFormat: "dd/mm/aaaa",
+		outputFormat: "yyyy-mm-dd",
+		locale: "pt-BR"
+	});
 	$(".cpf").inputmask("999.999.999-99");
 	$(".cep").inputmask("99999999");
     $(".celular").inputmask("(99) \\9-9999-9999");
@@ -18,9 +23,6 @@ function validarCPF( cpf ){
 		var filtro = /^\d{3}.\d{3}.\d{3}-\d{2}$/i;
 
 		if(!filtro.test(cpf)){
-			window.alert("CPF inválido.");
-			$('#cpf').val('');
-			$('#cpf').focus();
 			return false;
 		}
 
@@ -31,9 +33,6 @@ function validarCPF( cpf ){
 			cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" ||
 			cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" ||
 			cpf == "88888888888" || cpf == "99999999999"){
-				window.alert("CPF inválido.");
-				$('#cpf').val('');
-				$('#cpf').focus();
 				return false;
 		}
 
@@ -50,9 +49,6 @@ function validarCPF( cpf ){
 		}
 
 		if(resto != parseInt(cpf.charAt(9))){
-			window.alert("CPF inválido.");
-			$('#cpf').val('');
-			$('#cpf').focus();
 			return false;
 		}
 
@@ -67,9 +63,6 @@ function validarCPF( cpf ){
 		}
 
 		if(resto != parseInt(cpf.charAt(10))){
-			window.alert("CPF inválido.");
-			$('#cpf').val('');
-			$('#cpf').focus();
 			return false;
 		}
 	}
@@ -87,7 +80,29 @@ function remove(str, sub) {
 }
 
 
+$('#cpf').on("blur", function(){
+	var cpf = $(this).val()
+	console.log($(this).val())
+	$.ajax({
+		url: "http://localhost/admin/users/cpf/validar",
+		data: {cpf: cpf},
+		type: "GET",
+		success: function(response){
+			$('#cpf').addClass('is-invalid');
+			$('#cpfValidate').addClass('invalid-feedback').html(response).css('display', 'block');
+		},
+		error: function (xhr){
+			//
+		}
+	});
+});
+
 function datetimePTBR(datetime)
 {
     return moment(datetime).format('DD/MM/YYYY hh:mm');
+}
+
+function datePTBR(date)
+{
+    return moment(date).format('DD/MM/YYYY');
 }

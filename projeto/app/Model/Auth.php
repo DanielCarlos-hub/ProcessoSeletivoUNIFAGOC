@@ -9,7 +9,6 @@ use Firebase\JWT\JWT;
 
 /**
  * Class Auth
- * @package Source\Models
  */
 class Auth extends Model
 {
@@ -90,28 +89,23 @@ class Auth extends Model
                 'iat'  => time(),
                 'jti'  => base64_encode(openssl_random_pseudo_bytes(32)),
                 'iss'  => BASE,
-                'nbf'  => time()+2,
+                'nbf'  => time(),
                 'exp'  => time()+3600,
-                'data' => [
+                'user' => [
                     'userId'   => $this->user()->id, // userid from the users table
                     'userName' => $this->user()->username,
                     'userRole' => $this->user()->role // User role
                 ]
             ];
-
-            $user = [                  // Data related to the signer user
-                'userId'   => $this->user()->id, // userid from the users table
-                'userName' => $this->user()->username,
-                'userRole' => $this->user()->role // User role
-            ];
     
+            JWT::$leeway = 5;
             $jwt = JWT::encode(
                 $payload,   
                 SECRET,
                 ALGORITHM
             );
 
-            $unencodedArray = ['jwt' => $jwt, 'user' => $user];
+            $unencodedArray = ['jwt' => $jwt, 'user' => $payload['user']];
             return json_encode($unencodedArray);
 
         } else {

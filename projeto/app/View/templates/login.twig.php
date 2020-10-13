@@ -18,7 +18,7 @@
     </div>
 
     <script src="{{ASSET}}js/jquery-3.5.1.min.js"></script>
-
+    <script src="{{ASSET}}js/bootstrap.bundle.min.js"></script>
     {% block javascript %}{% endblock %}    
 </body>
 </html>

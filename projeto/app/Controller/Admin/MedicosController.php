@@ -19,12 +19,10 @@ class MedicosController extends Controller
         $this->authenticated();
         if(user()->role != "admin")
             redirect(user()->role."/home");
-        
     }
 
     public function index()
     {
-        
         $especialidades = (new Especialidade())->find()->fetch(true);
         $this->load('admin/users/medicos',[
            'especialidades' => $especialidades
@@ -33,7 +31,6 @@ class MedicosController extends Controller
 
     public function showMedicos()
     {
-
         $token = $this->tokenVerify();
         if($token['http'] == 200){
 

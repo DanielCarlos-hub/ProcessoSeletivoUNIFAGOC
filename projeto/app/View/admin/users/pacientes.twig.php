@@ -13,6 +13,8 @@
     <div class="container-fluid pt-2">
         <div class="row">
             <div class="col-12">
+                <div id="msg">
+                </div>
                 <div class="card pt-3 pb-3 pr-3 pl-3">
                     <div class="card-header bg-dark">
                         <button class="btn btn-info btn-sm m-1" role="button" onClick="addPaciente()">Adicionar Paciente</button>
@@ -69,6 +71,7 @@
                                             <label for="cpf"class="control-label col-form-label" style="padding-left: 15px;">CPF</label>
                                             <div class="col-sm-12">
                                                 <input type="text" class="form-control cpf" id="cpf" required autofocus autocomplete="off">
+                                                <div id="cpfValidate"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -196,10 +199,15 @@
                 },
                 error: function (xhr){
                     if(xhr.status == 401){
-                        alert("Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!");
-                        window.location.href = '/logout';
+                        $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                        setTimeout(function(){
+                            window.location.href = '/logout';
+                        }, 4000);
                     }
-                    alert("Error: "+xhr.responseText);
+                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                    setTimeout(function(){
+                        $(".alert").alert('close');
+                    }, 4000);
                 } 
             },
             "pageLength": 10,
@@ -210,7 +218,7 @@
             "columnDefs": [
                 {
                     "targets": 0,
-                    "width": "100px",
+                    "width": "150px",
                     "data": "agente.nome",
                     "searchable": true,
                     "orderable": false,
@@ -220,7 +228,7 @@
                 },
                 {
                     "targets": 1,
-                    "width": "50px",
+                    "width": "60px",
                     "data": "agente.cpf",
                     "searchable": true,
                     "orderable": false,
@@ -230,7 +238,7 @@
                 },
                 {
                     "targets": 2,
-                    "width": "50px",
+                    "width": "60px",
                     "data": "agente.user.username",
                     "searchable": true,
                     "orderable": false,
@@ -240,7 +248,7 @@
                 },
                 {
                     "targets": 3,
-                    "width": "50px",
+                    "width": "60px",
                     "data": "telefone",
                     "searchable": true,
                     "orderable": false,
@@ -250,7 +258,7 @@
                 },
                 {
                     "targets": 4,
-                    "width": "50px",
+                    "width": "60px",
                     "data": "agente.created_at",
                     "searchable": true,
                     "orderable": false,
@@ -260,11 +268,11 @@
                 },
                 {
                     "targets": 5,
-                    "width": "50px",
+                    "width": "150px",
                     "data": "id",
                     "orderable": false,
                     "render": function ( data, type, row, meta ) {
-                        return '<button title="Visualizar" role="button" class="btn btn-sm btn-success mr-1" onClick="verPaciente(' + data + ')"><i class="fas fa-eye"></i></button>'+'<button title="Visualizar" role="button" class="btn btn-sm btn-warning mr-1" onClick="editarPaciente(' + data + ')"><i class="fas fa-pencil-alt"></i></button>'+'<button title="Deletar" role="button" class="btn btn-sm btn-danger mr-1" onClick="deletarUsuario(' + data + ')"><i class="fas fa-trash"></i></button>';
+                        return '<button title="Visualizar" role="button" class="btn btn-sm btn-success mr-1" onClick="verPaciente(' + data + ')"><i class="fas fa-eye"></i></button>'+'<button title="Visualizar" role="button" class="btn btn-sm btn-warning mr-1" onClick="editarPaciente(' + data + ')"><i class="fas fa-pencil-alt"></i></button>';
                     }
                 }
             ],
@@ -309,15 +317,24 @@
                 console.log(response);
                 $("#addPaciente").modal('hide')
                 $('#pacientes').DataTable().ajax.reload()
+                $('#msg').append("<div class='alert alert-fixed alert-fixed alert-info'>"+response+"</div>");
+                setTimeout(function(){
+                    $(".alert").alert('close');
+                }, 5000);
             },
 
             error: function (xhr){
-                if(xhr.status == 401){
-                    alert("Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!");
-                    window.location.href = '/logout';
-                }
                 $("#addPaciente").modal('hide');
-                alert("Error: "+xhr.responseText);
+                if(xhr.status == 401){
+                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                    setTimeout(function(){
+                        window.location.href = '/logout';
+                    }, 4000);
+                }
+                $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                setTimeout(function(){
+                    $(".alert").alert('close');
+                }, 4000);
             } 
         });
     }
@@ -352,10 +369,15 @@
             },
             error: function (xhr){
                 if(xhr.status == 401){
-                    alert("Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!");
-                    window.location.href = '/logout';
+                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                    setTimeout(function(){
+                        window.location.href = '/logout';
+                    }, 4000);
                 }
-                alert("Error: "+xhr.responseText);
+                $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                setTimeout(function(){
+                    $(".alert").alert('close');
+                }, 4000);
             }
         });
 
@@ -389,14 +411,23 @@
                 console.log(response);
                 $("#addPaciente").modal('hide');
                 $('#pacientes').DataTable().ajax.reload();
+                $('#msg').append("<div class='alert alert-fixed alert-fixed alert-info'>"+response+"</div>");
+                setTimeout(function(){
+                    $(".alert").alert('close');
+                }, 5000);
             },
             error: function (xhr){
-                if(xhr.status == 401){
-                    alert("Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!");
-                    window.location.href = '/logout';
-                }
                 $("#addPaciente").modal('hide');
-                alert("Error: "+xhr.responseText);
+                if(xhr.status == 401){
+                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                    setTimeout(function(){
+                        window.location.href = '/logout';
+                    }, 4000);
+                }
+                $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                setTimeout(function(){
+                    $(".alert").alert('close');
+                }, 4000);
             }
         });
     }
@@ -438,10 +469,15 @@
             },
             error: function (xhr){
                 if(xhr.status == 401){
-                    alert("Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!");
-                    window.location.href = '/logout';
+                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                    setTimeout(function(){
+                        window.location.href = '/logout';
+                    }, 4000);
                 }
-                alert("Error: "+xhr.responseText);
+                $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                setTimeout(function(){
+                    $(".alert").alert('close');
+                }, 4000);
             }
         });
     }

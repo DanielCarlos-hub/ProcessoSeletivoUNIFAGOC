@@ -74,6 +74,14 @@ class Agente extends Model
     }
 
     /**
+     * @return Medico|null
+     */
+    public function medico() :?Medico
+    {
+        return (new Medico())->findByAgente($this->id);
+    }
+
+    /**
      * @return bool
      */
     public function save(): bool

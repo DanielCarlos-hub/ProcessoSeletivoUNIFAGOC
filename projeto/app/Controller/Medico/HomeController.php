@@ -1,7 +1,9 @@
 <?php 
 
-namespace App\Controller\Paciente;
+namespace App\Controller\Medico;
 use App\Core\Controller;
+use App\Model\Atendimento;
+use App\Model\User;
 
 class HomeController extends Controller
 {
@@ -9,22 +11,17 @@ class HomeController extends Controller
     {
         parent::__construct();
         $this->authenticated();
-        if(user()->role != "paciente")
+        if(user()->role != "medico")
             redirect(user()->role."/home");
     }
 
     public function showHome()
     {
-        $this->load("paciente/home");
-    }
-
-    public function cadastro()
-    {
-        $this->load("paciente/cadastro");
+        $this->load("medico/home");
     }
 
     public function exames()
     {
-        $this->load("paciente/exames");
+        $this->load("medico/exames");
     }
 }

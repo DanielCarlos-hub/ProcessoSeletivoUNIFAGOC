@@ -20,19 +20,25 @@ class LoginController extends Controller
     {
         
         if (empty($this->request->get('username')) || empty($this->request->get('password'))) {
-            echo json_encode(['message' => 'Informe seu email e senha para entrar']);
-            exit;
+            $this->response->setContent('Informe seu email e senha para entrar');
+            $this->response->setStatusCode(400);
+            $this->response->send();
         }
 
         $auth = new Auth();
         $login = $auth->login($this->request->get('username'), $this->request->get('password'));
 
+        
         if ($login) {
-
-            echo $auth->jwt_encode();
             
+            $this->response->setContent($auth->jwt_encode());
+            $this->response->setStatusCode(200);
+            $this->response->send();
+
         } else {
-            echo json_encode(['message' => 'Não foi possível autenticar, usuário e senha não conferem']);
+            $this->response->setContent('Não foi possível autenticar, usuário e senha não conferem');
+            $this->response->setStatusCode(400);
+            $this->response->send();
         }
 
     }

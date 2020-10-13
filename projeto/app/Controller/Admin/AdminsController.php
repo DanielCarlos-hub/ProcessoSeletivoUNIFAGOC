@@ -94,6 +94,13 @@ class AdminsController extends Controller
         
         if($token['http'] == 200){
         
+            $cpf = new \Bissolli\ValidadorCpfCnpj\CPF($this->request->get('cpf'));
+            if(!$cpf->isValid()){
+                $this->response->setContent('O CPF informado não é valido!');
+                $this->response->setStatusCode(400);
+                $this->response->send();
+            }
+            
             Connection::beginTransaction();
 
             $agente = new Agente();

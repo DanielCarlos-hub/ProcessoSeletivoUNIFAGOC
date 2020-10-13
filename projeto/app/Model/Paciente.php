@@ -10,7 +10,7 @@ class Paciente extends Model
     /**
      * Paciente construtor
      */
-    public  function __construct()
+    public function __construct()
     {
         parent::__construct(
             "pacientes",

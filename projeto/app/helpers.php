@@ -113,3 +113,34 @@ if(!function_exists('csrf')){
 }
 
 
+/*********
+ * DATAS
+ **********/
+
+if (!function_exists('ConverteData')) {
+
+    /**
+     * description
+     *
+     * @param
+     * @return
+     */
+    function ConverteData($data){
+        return date("d/m/Y", strtotime($data));
+    }
+}
+
+if (!function_exists('dataUS')) {
+
+    /**
+     * description
+     *
+     * @param
+     * @return
+     */
+    function dataUS($data)
+    {/// converter data para padrão do banco
+        $mydata = substr($data,6,4)."-".substr($data,3,2)."-".substr($data,0,2);
+        return $mydata;
+    }
+}

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `prova`.`agentes` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `cpf` CHAR(14) NOT NULL,
   `nome` VARCHAR(155) NOT NULL,
-  `created_at` TIMESTAMP NULL,
+  `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `prova`.`pacientes` (
   `telefone` CHAR(15) NULL,
   `celular` CHAR(16) NULL,
   `deleted_at` TIMESTAMP NULL,
-  INDEX `fk_agente_agente_id_idx` (`agente_id` ASC),
+  INDEX `fk_agente_agente_id_idx` (`agente_id` ASC) ,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_agente_agente_id`
     FOREIGN KEY (`agente_id`)
@@ -78,7 +78,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `prova`.`users` (
   `id` INT NOT NULL,
-  `agente_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `agente_id` INT UNSIGNED NOT NULL,
   `username` VARCHAR(30) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `role` CHAR(20) NOT NULL,
@@ -135,6 +135,9 @@ CREATE TABLE IF NOT EXISTS `prova`.`atendimentos` (
   `paciente_id` INT UNSIGNED NOT NULL,
   `medico_id` INT UNSIGNED NOT NULL,
   `disponibilidade` TINYINT UNSIGNED NULL,
+  `data_atendimento` DATE NULL,
+  `start_at` TIME NULL,
+  `end_at` TIME NULL,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
@@ -155,29 +158,16 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `prova`.`arquivos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `prova`.`arquivos` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `filename` VARCHAR(155) NOT NULL,
-  `filesize` CHAR(20) NOT NULL,
-  `mimetype` CHAR(50) NOT NULL,
-  `filepath` VARCHAR(255) NOT NULL,
-  `created_at` TIMESTAMP NULL,
-  `updated_at` TIMESTAMP NULL,
-  `deleted_at` TIMESTAMP NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `prova`.`exames`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `prova`.`exames` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `atendimento_id` INT(10) UNSIGNED NOT NULL,
   `paciente_id` INT UNSIGNED NOT NULL,
   `medico_id` INT UNSIGNED NOT NULL,
-  `arquivo_id` INT UNSIGNED NOT NULL,
+  `descricao` VARCHAR(100) NOT NULL,
+  `resultado` TEXT NOT NULL,
+  `observacoes` TEXT NULL,
   `data_exame` DATE NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
@@ -185,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `prova`.`exames` (
   PRIMARY KEY (`id`),
   INDEX `exames_medico_id_idx` (`medico_id` ASC),
   INDEX `exames_paciente_id_idx` (`paciente_id` ASC),
-  INDEX `exames_arquivo_id_idx` (`arquivo_id` ASC),
+  INDEX `exames_atendimento_id_idx` (`atendimento_id` ASC),
   CONSTRAINT `exames_medico_id`
     FOREIGN KEY (`medico_id`)
     REFERENCES `prova`.`medicos` (`id`)
@@ -196,9 +186,9 @@ CREATE TABLE IF NOT EXISTS `prova`.`exames` (
     REFERENCES `prova`.`pacientes` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `exames_arquivo_id`
-    FOREIGN KEY (`arquivo_id`)
-    REFERENCES `prova`.`arquivos` (`id`)
+  CONSTRAINT `exames_atendimento_id`
+    FOREIGN KEY (`atendimento_id`)
+    REFERENCES `prova`.`atendimentos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -209,17 +199,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `prova`.`laudos` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `atendimento_id` INT(10) UNSIGNED NOT NULL,
   `medico_id` INT UNSIGNED NOT NULL,
   `exame_id` INT UNSIGNED NOT NULL,
-  `testes_realizados` TEXT NOT NULL,
-  `motivo` VARCHAR(155) NOT NULL,
   `laudo` TEXT NOT NULL,
-  `created_at` TIMESTAMP NULL,
+  `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   INDEX `laudos_medico_id_idx` (`medico_id` ASC),
   INDEX `laudos_exame_id_idx` (`exame_id` ASC),
+  INDEX `laudos_atendimento_id_idx` (`atendimento_id` ASC),
   CONSTRAINT `laudos_medico_id`
     FOREIGN KEY (`medico_id`)
     REFERENCES `prova`.`medicos` (`id`)
@@ -228,6 +218,11 @@ CREATE TABLE IF NOT EXISTS `prova`.`laudos` (
   CONSTRAINT `laudos_exame_id`
     FOREIGN KEY (`exame_id`)
     REFERENCES `prova`.`exames` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `laudos_atendimento_id`
+    FOREIGN KEY (`atendimento_id`)
+    REFERENCES `prova`.`atendimentos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -72,6 +72,27 @@
     line-height: 1.2;
 }
 
+.accordion .card{
+    border: 0;
+}
+.accordion .card > .card-header{
+    background-color: white;
+    border: 0;
+    cursor: pointer;
+}
+
+.accordion .card > .card-header a{
+    background-color: white;
+}
+
+.alert-fixed {
+    position:fixed; 
+    top: 0px; 
+    left: 0px; 
+    width: 100%;
+    z-index:9999; 
+    border-radius:0px
+}
 
 /** Select2 Plugin Styles **/
 .select2 {
@@ -141,7 +162,115 @@ button.dt-button, div.dt-button{
 /* ADMIN */
 #pacientes thead th, #pacientes thead td {
     padding: 10px 12px;
+    font-size: 14px;
 }
 #pacientes tbody td{
     font-size: 12px;
+}
+#medicos thead th, #pacientes thead td {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+#medicos tbody td{
+    font-size: 12px;
+}
+#administradores thead th, #administradores thead td {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+#administradores tbody td{
+    font-size: 12px;
+}
+
+#espera thead th, #espera thead td {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+#espera tbody td{
+    font-size: 12px;
+}
+
+#confirmados thead th, #confirmados thead td {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+#confirmados tbody td{
+    font-size: 12px;
+}
+
+#recusados thead th, #recusados thead td {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+#recusados tbody td{
+    font-size: 12px;
+}
+
+#finalizados thead th, #finalizados thead td {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+#finalizados tbody td{
+    font-size: 12px;
+}
+
+#exames thead th, #exames thead td {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+#exames tbody td{
+    font-size: 12px;
+}
+
+/* MEDICOS */
+#espera{
+    border: 0;
+}
+#espera tbody tr > .dataTables_empty{
+    background-color: #3498db;
+    color: white;
+}
+
+#confirmados{
+    border: 0;
+}
+#confirmados tbody tr > .dataTables_empty{
+    background-color: #18bc9c;
+    color: white;
+}
+
+#recusados tbody tr > .dataTables_empty{
+    background-color:#f39c12;
+    color: white;
+}
+#recusados{
+    border: 0;
+}
+
+
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+
+@media screen and (min-width: 320px) and (max-width: 575px)
+{
+    h5{
+        font-size: 1rem;
+    }
 }

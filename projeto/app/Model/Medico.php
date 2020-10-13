@@ -56,6 +56,18 @@ class Medico extends Model
     }
 
     /**
+     * @param int $id
+     * @param string $columns
+     * 
+     * @return Medico|null
+     */
+    public function findByAgente(int $id, string $columns = "*"): ?Medico
+    {
+        $find = $this->find("agente_id = :agente_id", "agente_id={$id}", $columns);
+        return $find->fetch();
+    }
+
+    /**
      * @return iterable|null
      */
     public function especialidades(): ?iterable
@@ -68,7 +80,7 @@ class Medico extends Model
      */
     public function atendimentos() :?iterable
     {
-        return (new Atendimento())->find("medico_id = :medico_id", "especialidade_id={$this->id}")->fetch(true);
+        return (new Atendimento())->find("medico_id = :medico_id", "medico_id={$this->id}")->fetch(true);
     }
 
     /**

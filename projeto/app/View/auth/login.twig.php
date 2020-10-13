@@ -3,10 +3,12 @@
 {% block title %} SAMED - LOGIN {% endblock %}
 {% block body %}
 
-<div class="container-fluid pt-5 mt-5">
-    <div class="col-12 col-md-12 col-lg-12">
+<div class="page-wrapper">
+    <div class="container-fluid pt-5 mt-5">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+                <div id="msg">
+                </div>
                 <div class="card text-white bg-info mb-3">
                     <div class="card-header">Login - SAMED</div>
                     <div class="card-body">
@@ -37,7 +39,6 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 {% block javascript %}
@@ -56,11 +57,16 @@
                 case 'paciente':
                     window.location.href = '/paciente/home';
                     break;
+                case 'medico':
+                    window.location.href = '/medico/home';
                 default:
                     break;
             }
-        }, "json").fail(function(){
-            alert('error');
+        }, "json").fail(function(xhr){
+            $('#msg').append("<div class='alert alert-fixed alert-danger'>"+xhr.responseText+"</div>");
+            setTimeout(function(){
+                $(".alert").alert('close');
+            }, 4000);
         });
     });
     </script>
