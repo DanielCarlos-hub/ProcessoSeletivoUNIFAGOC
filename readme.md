@@ -10,18 +10,18 @@
 - selecione o banco de dados "prova" e importe o arquivo phpmyadmin.sql dentro da pasta banco de dados 
 
 ## Acessos
-- Acesse http://localhost e utilize um dos seguintes logins
+- Acesse http://localhost e utilize um dos seguintes logins  
 
-- Administrador: 
-usuario: admin
-senha: admin
+- Administrador:  
+usuario: admin  
+senha: admin  
 
-- Paciente:
-usuario: paciente
-senha: paciente
+- Paciente:  
+usuario: paciente  
+senha: paciente  
 
-- Medico:
-usuario: medico
-senha: medico
+- Medico:  
+usuario: medico  
+senha: medico  
 
 ------------------------------
