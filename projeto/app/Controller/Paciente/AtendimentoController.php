@@ -75,7 +75,7 @@ class AtendimentoController extends Controller
 
             if(!$atendimento->save()){
                 $this->response->setContent($atendimento->message()->getText());
-                $this->response->setStatusCode(200);
+                $this->response->setStatusCode(400);
                 $this->response->send();
             }
 

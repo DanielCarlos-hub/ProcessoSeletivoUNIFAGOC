@@ -128,15 +128,15 @@
                 },
                 error: function (xhr){
                     if(xhr.status == 401){
-                        $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                        $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
                         setTimeout(function(){
                             window.location.href = '/logout';
                         }, 4000);
                     }
-                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                    $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
                     setTimeout(function(){
                         $(".alert").alert('close');
-                    }, 5000);
+                    }, 4000);
                     
                 } 
             },
@@ -228,7 +228,7 @@
             success: function(response){
                 $("#addAdmin").modal('hide')
                 $('#administradores').DataTable().ajax.reload()
-                $('#msg').append("<div class='alert alert-fixed alert-fixed alert-info'>"+response+"</div>");
+                $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-fixed alert-info'>"+response+"</div>");
                 setTimeout(function(){
                     $(".alert").alert('close');
                 }, 5000);
@@ -238,15 +238,15 @@
                 $("#addAdmin").modal('hide');
 
                 if(xhr.status == 401){
-                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                    $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
                     setTimeout(function(){
                         window.location.href = '/logout';
                     }, 4000);
                 }
-                $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
                 setTimeout(function(){
                     $(".alert").alert('close');
-                }, 5000);
+                }, 4000);
                 
             } 
         });
@@ -270,12 +270,12 @@
             },
             error: function (xhr){
                 if(xhr.status == 401){
-                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                    $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
                     setTimeout(function(){
                         window.location.href = '/logout';
                     }, 4000);
                 }
-                $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
                 setTimeout(function(){
                     $(".alert").alert('close');
                 }, 5000);
@@ -301,7 +301,7 @@
             success: function(response){
                 $("#addAdmin").modal('hide');
                 $('#administradores').DataTable().ajax.reload();
-                $('#msg').append("<div class='alert alert-fixed alert-fixed alert-info'>"+response+"</div>");
+                $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-info'>"+response+"</div>");
                 setTimeout(function(){
                     $(".alert").alert('close');
                 }, 5000);
@@ -310,15 +310,15 @@
                 $("#addAdmin").modal('hide');
 
                 if(xhr.status == 401){
-                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                    $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
                     setTimeout(function(){
                         window.location.href = '/logout';
                     }, 4000);
                 }
-                $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
                 setTimeout(function(){
                     $(".alert").alert('close');
-                }, 5000);
+                }, 4000);
             }
         });
     }
@@ -359,15 +359,15 @@
             },
             error: function (xhr){
                 if(xhr.status == 401){
-                    $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
+                    $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"\r\n"+"Efetue o login novamente!</div>");
                     setTimeout(function(){
                         window.location.href = '/logout';
                     }, 4000);
                 }
-                $('#msg').append("<div class='alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
+                $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>Error: "+xhr.status+ " - "+xhr.responseText+"</div>");
                 setTimeout(function(){
                     $(".alert").alert('close');
-                }, 5000);
+                }, 4000);
             }
         });
     }

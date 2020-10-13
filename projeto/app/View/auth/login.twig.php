@@ -63,7 +63,7 @@
                     break;
             }
         }, "json").fail(function(xhr){
-            $('#msg').append("<div class='alert alert-fixed alert-danger'>"+xhr.responseText+"</div>");
+            $('#msg').append("<div class='text-center mx-auto alert alert-fixed alert-danger'>"+xhr.responseText+"</div>");
             setTimeout(function(){
                 $(".alert").alert('close');
             }, 4000);

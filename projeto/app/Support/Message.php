@@ -115,7 +115,7 @@ class Message
      */
     public function render(): string
     {
-        return "<div class='w-50 text-center mx-auto alert {$this->getType()}'>{$this->getText()}</div>";
+        return "<div class='text-center mx-auto alert alert-fixed {$this->getType()}'>{$this->getText()}</div>";
     }
 
     /**

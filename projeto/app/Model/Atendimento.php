@@ -76,7 +76,7 @@ class Atendimento extends Model
             $checkOcioso = (new Atendimento())->find("medico_id = :medico_id AND disponibilidade is null", "medico_id={$this->medico_id}");
             
             if ($checkOcioso->count()) {
-                $this->message->warning("Médico com solicitação pendente!");
+                $this->message->warning("O Médico escolhido está com uma solicitação pendente!");
                 return false;
             }
 
