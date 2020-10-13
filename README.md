@@ -7,17 +7,21 @@
 
 ## Banco de dados
 - Acesse http://localhost:8004 (endereço local para o phpmyadmin)
-- selecione o banco de dados prova e importe o arquivo phpmyadmin.sql dentro da pasta banco de dados 
+- selecione o banco de dados "prova" e importe o arquivo phpmyadmin.sql dentro da pasta banco de dados 
 
 ## Acessos
-- Acesse http://localhost e utilize um dos seguintes logins
+- Acesse http://localhost e utilize um dos seguintes logins  
 
-- Administradores: 
-usuario: nicole
-senha: nicole
+- Administrador:  
+usuario: admin  
+senha: admin  
 
-- Pacientes:
-usuario: marlene
-senha: marlene
+- Paciente:  
+usuario: paciente  
+senha: paciente  
+
+- Medico:  
+usuario: medico  
+senha: medico  
 
 ------------------------------
